@@ -10,6 +10,7 @@ const taskSchema = new mongoose.Schema({
     required: true,
   },
   price: { type: Number, required: true },
+  image: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Task", taskSchema);

@@ -1,11 +1,39 @@
 const taskService = require("../services/taskService");
+// Import Cloudinary
+const cloudinary = require("cloudinary").v2;
+
+// Configure Cloudinary with your API credentials
+cloudinary.config({
+  cloud_name: "djdkvlqkv",
+  api_key: "782954737367348",
+  api_secret: "zYihmdPIDw2kuXss74uvkxUskX4",
+});
 
 // add new task methods
 const addNewTask = async (req, res) => {
   try {
     const { body } = req;
     const { user_id } = req.auth;
+
     body.user_id = user_id;
+
+    const imageFile = req.files && req.files.image;
+
+    console.log(imageFile);
+
+    // Check if an image was uploaded
+    if (!imageFile) {
+      return res.status(400).json({ message: "Image is required" });
+    }
+
+    // Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(imageFile, {
+      folder: "tasks",
+    });
+
+    // Add image URL to task data
+    body.image = result.secure_url;
+
     const newTask = await taskService.addTask(body);
     res.status(201).json({
       message: "Task added successfully",

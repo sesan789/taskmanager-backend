@@ -1,4 +1,8 @@
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+
+// Multer configuration for handling file uploads
+const upload = multer({ dest: "uploads/" });
 
 // authentication checker
 const authChecker = async (req, res, next) => {
@@ -18,4 +22,4 @@ const authChecker = async (req, res, next) => {
   });
 };
 
-module.exports = { authChecker };
+module.exports = { authChecker, upload };

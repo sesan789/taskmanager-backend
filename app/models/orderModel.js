@@ -7,14 +7,14 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  quantity: { type: Number, required: true },
   task_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Task",
     required: true,
   },
   price: { type: Number, required: true },
-  quantity: { type: Number, required: true },
-  date: { type: Date, default: Date.now},
+  date: { type: Date, default: Date.now },
   transaction_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Transaction",
